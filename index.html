@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,125 +6,1198 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#090d15">
   <meta name="color-scheme" content="dark">
+
   <title>NOVO IOS | Inventory Ordering System</title>
+
+  <!-- STYLES -->
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="orders.css">
+
+  <!-- APPLICATION -->
   <script src="inventory.js" defer></script>
   <script src="app.js" defer></script>
   <script src="forecast.js" defer></script>
   <script src="dashboard.js" defer></script>
-  <!-- Only add orders.js here after you've installed that module. -->
+  <script src="orders.js" defer></script>
 </head>
+
 <body class="theme-dark">
-  <!-- Built-in icons: no internet or icon library required -->
-  <svg class="icon-library" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
-    <symbol id="ic-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></symbol>
-    <symbol id="ic-box" viewBox="0 0 24 24"><path d="m12 3 9 5-9 5-9-5 9-5Z"/><path d="M3 8v9l9 5 9-5V8M12 13v9"/></symbol>
-    <symbol id="ic-clipboard" viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="18" rx="2"/><rect x="9" y="2" width="6" height="4" rx="1"/><path d="m9 14 2 2 4-4"/></symbol>
-    <symbol id="ic-trend" viewBox="0 0 24 24"><path d="m3 17 6-6 4 4 8-9"/><path d="M15 6h6v6"/></symbol>
-    <symbol id="ic-cart" viewBox="0 0 24 24"><circle cx="9" cy="20" r="1"/><circle cx="19" cy="20" r="1"/><path d="M2 3h2l3 13h13l2-10H5"/></symbol>
-    <symbol id="ic-truck" viewBox="0 0 24 24"><path d="M3 5h11v13H3zM14 9h4l3 4v5h-7"/><circle cx="7.5" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></symbol>
-    <symbol id="ic-file" viewBox="0 0 24 24"><path d="M6 2h8l5 5v15H6zM14 2v5h5M9 12h7M9 16h7"/></symbol>
-    <symbol id="ic-bell" viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></symbol>
-    <symbol id="ic-alert" viewBox="0 0 24 24"><path d="m12 3 10 18H2L12 3ZM12 9v5M12 18h.01"/></symbol>
-    <symbol id="ic-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></symbol>
-    <symbol id="ic-download" viewBox="0 0 24 24"><path d="M12 3v12m-5-5 5 5 5-5M4 17v4h16v-4"/></symbol>
-    <symbol id="ic-upload" viewBox="0 0 24 24"><path d="M12 16V4m-5 5 5-5 5 5M4 17v4h16v-4"/></symbol>
-    <symbol id="ic-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
-    <symbol id="ic-hospital" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="18" rx="2"/><path d="M12 7v7m-3.5-3.5h7M9 22v-5h6v5"/></symbol>
+
+  <!-- BUILT-IN ICONS -->
+
+  <svg class="icon-library"
+       aria-hidden="true"
+       xmlns="http://www.w3.org/2000/svg">
+
+    <symbol id="ic-grid" viewBox="0 0 24 24">
+      <rect x="3" y="3" width="7" height="7" rx="1.5"/>
+      <rect x="14" y="3" width="7" height="7" rx="1.5"/>
+      <rect x="3" y="14" width="7" height="7" rx="1.5"/>
+      <rect x="14" y="14" width="7" height="7" rx="1.5"/>
+    </symbol>
+
+    <symbol id="ic-box" viewBox="0 0 24 24">
+      <path d="m12 3 9 5-9 5-9-5 9-5Z"/>
+      <path d="M3 8v9l9 5 9-5V8M12 13v9"/>
+    </symbol>
+
+    <symbol id="ic-clipboard" viewBox="0 0 24 24">
+      <rect x="5" y="4" width="14" height="18" rx="2"/>
+      <rect x="9" y="2" width="6" height="4" rx="1"/>
+      <path d="m9 14 2 2 4-4"/>
+    </symbol>
+
+    <symbol id="ic-trend" viewBox="0 0 24 24">
+      <path d="m3 17 6-6 4 4 8-9"/>
+      <path d="M15 6h6v6"/>
+    </symbol>
+
+    <symbol id="ic-cart" viewBox="0 0 24 24">
+      <circle cx="9" cy="20" r="1"/>
+      <circle cx="19" cy="20" r="1"/>
+      <path d="M2 3h2l3 13h13l2-10H5"/>
+    </symbol>
+
+    <symbol id="ic-truck" viewBox="0 0 24 24">
+      <path d="M3 5h11v13H3zM14 9h4l3 4v5h-7"/>
+      <circle cx="7.5" cy="18" r="2"/>
+      <circle cx="18" cy="18" r="2"/>
+    </symbol>
+
+    <symbol id="ic-file" viewBox="0 0 24 24">
+      <path d="M6 2h8l5 5v15H6zM14 2v5h5M9 12h7M9 16h7"/>
+    </symbol>
+
+    <symbol id="ic-bell" viewBox="0 0 24 24">
+      <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/>
+    </symbol>
+
+    <symbol id="ic-alert" viewBox="0 0 24 24">
+      <path d="m12 3 10 18H2L12 3ZM12 9v5M12 18h.01"/>
+    </symbol>
+
+    <symbol id="ic-arrow" viewBox="0 0 24 24">
+      <path d="M5 12h14m-6-6 6 6-6 6"/>
+    </symbol>
+
+    <symbol id="ic-download" viewBox="0 0 24 24">
+      <path d="M12 3v12m-5-5 5 5 5-5M4 17v4h16v-4"/>
+    </symbol>
+
+    <symbol id="ic-upload" viewBox="0 0 24 24">
+      <path d="M12 16V4m-5 5 5-5 5 5M4 17v4h16v-4"/>
+    </symbol>
+
+    <symbol id="ic-clock" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="9"/>
+      <path d="M12 7v5l3 2"/>
+    </symbol>
+
+    <symbol id="ic-hospital" viewBox="0 0 24 24">
+      <rect x="4" y="4" width="16" height="18" rx="2"/>
+      <path d="M12 7v7m-3.5-3.5h7M9 22v-5h6v5"/>
+    </symbol>
+
   </svg>
 
+  <!-- SIDEBAR -->
+
   <aside class="sidebar">
+
     <div class="brand-lockup">
-      <div class="brand-symbol">N<span>✦</span></div>
-      <div><div class="brand">NOVO <span>IOS</span></div><p class="brand-subtitle">/ Inventory Ordering System</p></div>
+      <div class="brand-symbol">
+        N<span>✦</span>
+      </div>
+
+      <div>
+        <div class="brand">
+          NOVO <span>IOS</span>
+        </div>
+
+        <p class="brand-subtitle">
+          / Inventory Ordering System
+        </p>
+      </div>
     </div>
-    <div class="sidebar-section-label">WORKSPACE</div>
-    <nav id="navigation" aria-label="Main navigation">
-      <button type="button" class="nav-btn active" data-page="dashboard"><svg class="nav-icon"><use href="#ic-grid"/></svg>Dashboard</button>
-      <button type="button" class="nav-btn" data-page="inventory"><svg class="nav-icon"><use href="#ic-box"/></svg>Inventory</button>
-      <button type="button" class="nav-btn" data-page="checkin"><svg class="nav-icon"><use href="#ic-clipboard"/></svg>Daily Check-In</button>
-      <button type="button" class="nav-btn" data-page="forecasting"><svg class="nav-icon"><use href="#ic-trend"/></svg>Forecasting</button>
-      <div class="nav-group-label">PURCHASING</div>
-      <button type="button" class="nav-btn" data-page="purchasing"><svg class="nav-icon"><use href="#ic-cart"/></svg>Vendor Purchasing Hub</button>
-      <button type="button" class="nav-btn" data-page="orders"><svg class="nav-icon"><use href="#ic-truck"/></svg>Orders &amp; Deliveries</button>
-      <div class="nav-group-label">INSIGHTS &amp; SUPPORT</div>
-      <button type="button" class="nav-btn" data-page="renvio"><svg class="nav-icon"><use href="#ic-file"/></svg>RenVio Report Center</button>
-      <button type="button" class="nav-btn" data-page="notifications"><svg class="nav-icon"><use href="#ic-bell"/></svg>Notifications</button>
+
+    <div class="sidebar-section-label">
+      WORKSPACE
+    </div>
+
+    <nav id="navigation"
+         aria-label="Main navigation">
+
+      <button type="button"
+              class="nav-btn active"
+              data-page="dashboard">
+        <svg class="nav-icon">
+          <use href="#ic-grid"/>
+        </svg>
+        Dashboard
+      </button>
+
+      <button type="button"
+              class="nav-btn"
+              data-page="inventory">
+        <svg class="nav-icon">
+          <use href="#ic-box"/>
+        </svg>
+        Inventory
+      </button>
+
+      <button type="button"
+              class="nav-btn"
+              data-page="checkin">
+        <svg class="nav-icon">
+          <use href="#ic-clipboard"/>
+        </svg>
+        Daily Check-In
+      </button>
+
+      <button type="button"
+              class="nav-btn"
+              data-page="forecasting">
+        <svg class="nav-icon">
+          <use href="#ic-trend"/>
+        </svg>
+        Forecasting
+      </button>
+
+      <div class="nav-group-label">
+        PURCHASING
+      </div>
+
+      <button type="button"
+              class="nav-btn"
+              data-page="purchasing">
+        <svg class="nav-icon">
+          <use href="#ic-cart"/>
+        </svg>
+        Vendor Purchasing Hub
+      </button>
+
+      <button type="button"
+              class="nav-btn"
+              data-page="orders">
+        <svg class="nav-icon">
+          <use href="#ic-truck"/>
+        </svg>
+        Orders &amp; Deliveries
+      </button>
+
+      <div class="nav-group-label">
+        INSIGHTS &amp; SUPPORT
+      </div>
+
+      <button type="button"
+              class="nav-btn"
+              data-page="renvio">
+        <svg class="nav-icon">
+          <use href="#ic-file"/>
+        </svg>
+        RenVio Report Center
+      </button>
+
+      <button type="button"
+              class="nav-btn"
+              data-page="notifications">
+        <svg class="nav-icon">
+          <use href="#ic-bell"/>
+        </svg>
+        Notifications
+      </button>
+
     </nav>
-    <div class="sidebar-bottom"><span class="online-dot"></span> Local development mode <small>Inventory saved in this browser only</small></div>
+
+    <div class="sidebar-bottom">
+      <span class="online-dot"></span>
+      Local development mode
+
+      <small>
+        Inventory saved in this browser only
+      </small>
+    </div>
+
   </aside>
 
+  <!-- MAIN APPLICATION -->
+
   <main class="main">
+
+    <!-- TOP HEADER -->
+
     <header class="topbar">
-      <div><p class="eyebrow">NOVO IOS <span class="crumb">/</span> OPERATIONS</p><h1 id="pageTitle">Dashboard</h1><p class="muted top-subtitle">One clear view of supply levels, daily counts and purchasing.</p></div>
-      <div class="header-controls"><span class="demo-label"><span class="online-dot"></span> LOCAL DEMO</span><label for="facilitySelect">Facility</label><select id="facilitySelect"><option value="Jamaica">Jamaica (NDJ)</option><option value="Flatlands">Flatlands (NDF)</option><option value="Both">Both Facilities</option></select></div>
+
+      <div>
+        <p class="eyebrow">
+          NOVO IOS
+          <span class="crumb">/</span>
+          OPERATIONS
+        </p>
+
+        <h1 id="pageTitle">
+          Dashboard
+        </h1>
+
+        <p class="muted top-subtitle">
+          One clear view of supply levels,
+          daily counts and purchasing.
+        </p>
+      </div>
+
+      <div class="header-controls">
+
+        <span class="demo-label">
+          <span class="online-dot"></span>
+          LOCAL DEMO
+        </span>
+
+        <label for="facilitySelect">
+          Facility
+        </label>
+
+        <select id="facilitySelect">
+          <option value="Jamaica">
+            Jamaica (NDJ)
+          </option>
+
+          <option value="Flatlands">
+            Flatlands (NDF)
+          </option>
+
+          <option value="Both">
+            Both Facilities
+          </option>
+        </select>
+
+      </div>
+
     </header>
 
-    <!-- DASHBOARD: same IDs used by your existing app.js -->
+    <!-- DASHBOARD PAGE -->
+
     <section id="dashboardPage" class="page">
+
+      <!-- WELCOME BANNER -->
+
       <div class="welcome-banner">
-        <div class="welcome-copy"><div class="banner-kicker"><span class="sparkle">✦</span> YOUR OPERATIONS AT A GLANCE</div><h2>Good <span id="dayGreeting">morning</span><span class="greeting-dot">.</span></h2><p>Here's what needs attention at <strong id="dashboardFacilityName">Jamaica</strong> today.</p><div class="banner-actions"><button type="button" class="light-btn" data-goto="checkin">Start daily check-in <svg class="mini-icon"><use href="#ic-arrow"/></svg></button><button type="button" class="outline-light-btn" data-goto="forecasting">Open forecast</button></div></div>
-        <div class="banner-art" aria-hidden="true"><span class="art-ring art-ring-one"></span><span class="art-ring art-ring-two"></span><div class="art-center"><svg><use href="#ic-hospital"/></svg></div></div>
+
+        <div class="welcome-copy">
+
+          <div class="banner-kicker">
+            <span class="sparkle">✦</span>
+            YOUR OPERATIONS AT A GLANCE
+          </div>
+
+          <h2>
+            Good
+            <span id="dayGreeting">morning</span>
+            <span class="greeting-dot">.</span>
+          </h2>
+
+          <p>
+            Here's what needs attention at
+            <strong id="dashboardFacilityName">
+              Jamaica
+            </strong>
+            today.
+          </p>
+
+          <div class="banner-actions">
+
+            <button type="button"
+                    class="light-btn"
+                    data-goto="checkin">
+              Start daily check-in
+
+              <svg class="mini-icon">
+                <use href="#ic-arrow"/>
+              </svg>
+            </button>
+
+            <button type="button"
+                    class="outline-light-btn"
+                    data-goto="forecasting">
+              Open forecast
+            </button>
+
+          </div>
+
+        </div>
+
+        <div class="banner-art"
+             aria-hidden="true">
+
+          <span class="art-ring art-ring-one"></span>
+          <span class="art-ring art-ring-two"></span>
+
+          <div class="art-center">
+            <svg>
+              <use href="#ic-hospital"/>
+            </svg>
+          </div>
+
+        </div>
+
       </div>
 
-      <div class="dashboard-section-heading"><div><h2>Overview</h2><p class="muted" id="dashboardDate">Current facility snapshot</p></div><span class="section-note">Based on saved inventory</span></div>
-      <div class="stats">
-        <button type="button" class="stat-card stat-button" data-goto="inventory"><div class="stat-top"><span>INVENTORY ITEMS</span><span class="stat-icon blue"><svg><use href="#ic-box"/></svg></span></div><strong id="statItems">0</strong><small>Products in selected facility <span class="stat-chevron">↗</span></small></button>
-        <button type="button" class="stat-card stat-button low-stock-card" id="lowStockCard"><div class="stat-top"><span>LOW STOCK ITEMS</span><span class="stat-icon amber"><svg><use href="#ic-alert"/></svg></span></div><strong id="statLow">0</strong><small>View products to reorder <span class="stat-chevron">↗</span></small></button>
-        <button type="button" class="stat-card stat-button" id="reviewCard"><div class="stat-top"><span>MINIMUMS TO REVIEW</span><span class="stat-icon purple"><svg><use href="#ic-clipboard"/></svg></span></div><strong id="statReview">0</strong><small>Confirm case-based minimums <span class="stat-chevron">↗</span></small></button>
-        <div class="stat-card"><div class="stat-top"><span>FACILITY VIEW</span><span class="stat-icon teal"><svg><use href="#ic-hospital"/></svg></span></div><strong id="statFacility" class="facility-stat">NDJ</strong><small>Use selector to switch locations</small></div>
+      <!-- OVERVIEW -->
+
+      <div class="dashboard-section-heading">
+
+        <div>
+          <h2>Overview</h2>
+
+          <p class="muted" id="dashboardDate">
+            Current facility snapshot
+          </p>
+        </div>
+
+        <span class="section-note">
+          Based on saved inventory
+        </span>
+
       </div>
+
+      <!-- STATISTICS -->
+
+      <div class="stats">
+
+        <button type="button"
+                class="stat-card stat-button"
+                data-goto="inventory">
+
+          <div class="stat-top">
+            <span>INVENTORY ITEMS</span>
+
+            <span class="stat-icon blue">
+              <svg>
+                <use href="#ic-box"/>
+              </svg>
+            </span>
+          </div>
+
+          <strong id="statItems">0</strong>
+
+          <small>
+            Products in selected facility
+            <span class="stat-chevron">↗</span>
+          </small>
+
+        </button>
+
+        <button type="button"
+                class="stat-card stat-button low-stock-card"
+                id="lowStockCard">
+
+          <div class="stat-top">
+            <span>LOW STOCK ITEMS</span>
+
+            <span class="stat-icon amber">
+              <svg>
+                <use href="#ic-alert"/>
+              </svg>
+            </span>
+          </div>
+
+          <strong id="statLow">0</strong>
+
+          <small>
+            View products to reorder
+            <span class="stat-chevron">↗</span>
+          </small>
+
+        </button>
+
+        <button type="button"
+                class="stat-card stat-button"
+                id="reviewCard">
+
+          <div class="stat-top">
+            <span>MINIMUMS TO REVIEW</span>
+
+            <span class="stat-icon purple">
+              <svg>
+                <use href="#ic-clipboard"/>
+              </svg>
+            </span>
+          </div>
+
+          <strong id="statReview">0</strong>
+
+          <small>
+            Confirm case-based minimums
+            <span class="stat-chevron">↗</span>
+          </small>
+
+        </button>
+
+        <div class="stat-card">
+
+          <div class="stat-top">
+            <span>FACILITY VIEW</span>
+
+            <span class="stat-icon teal">
+              <svg>
+                <use href="#ic-hospital"/>
+              </svg>
+            </span>
+          </div>
+
+          <strong id="statFacility"
+                  class="facility-stat">
+            NDJ
+          </strong>
+
+          <small>
+            Use selector to switch locations
+          </small>
+
+        </div>
+
+      </div>
+
+      <!-- SUPPLY ALERTS / QUICK ACTIONS -->
 
       <div class="dashboard-columns">
-        <section class="panel attention-panel"><div class="panel-title-row"><div><div class="panel-kicker">PRIORITY</div><h2>Supply alerts</h2><p class="muted">Items below your minimum stock level</p></div><button type="button" id="viewAllAlertsBtn" class="text-link">View all <span aria-hidden="true">↗</span></button></div><div id="priorityAlerts" class="alert-list"><p class="muted">Checking inventory…</p></div></section>
-        <section class="panel actions-panel"><div class="panel-title-row"><div><div class="panel-kicker">SHORTCUTS</div><h2>Quick actions</h2><p class="muted">Pick up where you left off</p></div></div><div class="action-list"><button type="button" class="action-tile" data-goto="checkin"><span class="action-graphic action-blue"><svg><use href="#ic-clipboard"/></svg></span><span><strong>Morning inventory count</strong><small>Verify your physical stock</small></span><span class="action-arrow">→</span></button><button type="button" class="action-tile" data-goto="inventory"><span class="action-graphic action-teal"><svg><use href="#ic-box"/></svg></span><span><strong>Manage inventory</strong><small>Add or update supply quantities</small></span><span class="action-arrow">→</span></button><button type="button" class="action-tile" data-goto="forecasting"><span class="action-graphic action-violet"><svg><use href="#ic-trend"/></svg></span><span><strong>Weekly utilization forecast</strong><small>Calculate cases to order</small></span><span class="action-arrow">→</span></button></div></section>
+
+        <section class="panel attention-panel">
+
+          <div class="panel-title-row">
+
+            <div>
+              <div class="panel-kicker">
+                PRIORITY
+              </div>
+
+              <h2>Supply alerts</h2>
+
+              <p class="muted">
+                Items below your minimum stock level
+              </p>
+            </div>
+
+            <button type="button"
+                    id="viewAllAlertsBtn"
+                    class="text-link">
+              View all
+              <span aria-hidden="true">↗</span>
+            </button>
+
+          </div>
+
+          <div id="priorityAlerts"
+               class="alert-list">
+
+            <p class="muted">
+              Checking inventory…
+            </p>
+
+          </div>
+
+        </section>
+
+        <section class="panel actions-panel">
+
+          <div class="panel-title-row">
+            <div>
+              <div class="panel-kicker">
+                SHORTCUTS
+              </div>
+
+              <h2>Quick actions</h2>
+
+              <p class="muted">
+                Pick up where you left off
+              </p>
+            </div>
+          </div>
+
+          <div class="action-list">
+
+            <button type="button"
+                    class="action-tile"
+                    data-goto="checkin">
+
+              <span class="action-graphic action-blue">
+                <svg>
+                  <use href="#ic-clipboard"/>
+                </svg>
+              </span>
+
+              <span>
+                <strong>
+                  Morning inventory count
+                </strong>
+
+                <small>
+                  Verify your physical stock
+                </small>
+              </span>
+
+              <span class="action-arrow">→</span>
+
+            </button>
+
+            <button type="button"
+                    class="action-tile"
+                    data-goto="inventory">
+
+              <span class="action-graphic action-teal">
+                <svg>
+                  <use href="#ic-box"/>
+                </svg>
+              </span>
+
+              <span>
+                <strong>
+                  Manage inventory
+                </strong>
+
+                <small>
+                  Add or update supply quantities
+                </small>
+              </span>
+
+              <span class="action-arrow">→</span>
+
+            </button>
+
+            <button type="button"
+                    class="action-tile"
+                    data-goto="forecasting">
+
+              <span class="action-graphic action-violet">
+                <svg>
+                  <use href="#ic-trend"/>
+                </svg>
+              </span>
+
+              <span>
+                <strong>
+                  Weekly utilization forecast
+                </strong>
+
+                <small>
+                  Calculate cases to order
+                </small>
+              </span>
+
+              <span class="action-arrow">→</span>
+
+            </button>
+
+          </div>
+
+        </section>
+
       </div>
+
+      <!-- RECENT ACTIVITY / VENDORS -->
 
       <div class="dashboard-columns bottom-columns">
-        <section class="panel"><div class="panel-title-row"><div><div class="panel-kicker">HISTORY</div><h2>Recent check-ins</h2><p class="muted">Latest saved inventory counts</p></div><button type="button" class="text-link" data-goto="checkin">History ↗</button></div><div id="recentCheckins" class="activity-list"><p class="muted">No check-ins recorded yet.</p></div></section>
-        <section class="panel"><div class="panel-title-row"><div><div class="panel-kicker">SUPPLIERS</div><h2>Vendor network</h2><p class="muted">Your ordering partners</p></div></div><div class="vendor-tags"><span class="vendor-tag fresenius">Fresenius</span><span class="vendor-tag henry">Henry Schein</span><span class="vendor-tag neutral">Cardinal</span><span class="vendor-tag neutral">Proficient</span><span class="vendor-tag neutral">Amazon</span></div><p class="muted small-note">Orders are not automatically submitted to vendors.</p></section>
+
+        <section class="panel">
+
+          <div class="panel-title-row">
+
+            <div>
+              <div class="panel-kicker">
+                HISTORY
+              </div>
+
+              <h2>Recent check-ins</h2>
+
+              <p class="muted">
+                Latest saved inventory counts
+              </p>
+            </div>
+
+            <button type="button"
+                    class="text-link"
+                    data-goto="checkin">
+              History ↗
+            </button>
+
+          </div>
+
+          <div id="recentCheckins"
+               class="activity-list">
+
+            <p class="muted">
+              No check-ins recorded yet.
+            </p>
+
+          </div>
+
+        </section>
+
+        <section class="panel">
+
+          <div class="panel-title-row">
+            <div>
+              <div class="panel-kicker">
+                SUPPLIERS
+              </div>
+
+              <h2>Vendor network</h2>
+
+              <p class="muted">
+                Your ordering partners
+              </p>
+            </div>
+          </div>
+
+          <div class="vendor-tags">
+            <span class="vendor-tag fresenius">
+              Fresenius
+            </span>
+
+            <span class="vendor-tag henry">
+              Henry Schein
+            </span>
+
+            <span class="vendor-tag neutral">
+              Cardinal
+            </span>
+
+            <span class="vendor-tag neutral">
+              Proficient
+            </span>
+
+            <span class="vendor-tag neutral">
+              Amazon
+            </span>
+          </div>
+
+          <p class="muted small-note">
+            Orders are not automatically
+            submitted to vendors.
+          </p>
+
+        </section>
+
       </div>
-      <section class="panel backup-panel"><div><div class="panel-kicker">DATA SAFETY</div><h2>Local backup</h2><p class="muted">Save a copy of your browser inventory and check-in records before making changes.</p></div><div class="backup-actions"><button type="button" class="secondary-btn" id="backupExportBtn"><svg class="mini-icon"><use href="#ic-download"/></svg> Export backup</button><button type="button" class="secondary-btn" id="backupImportBtn"><svg class="mini-icon"><use href="#ic-upload"/></svg> Import backup</button><input id="backupFileInput" type="file" accept=".json,application/json" class="hidden"></div><p id="backupMessage" class="backup-message" role="status"></p></section>
+
+      <!-- BACKUP -->
+
+      <section class="panel backup-panel">
+
+        <div>
+          <div class="panel-kicker">
+            DATA SAFETY
+          </div>
+
+          <h2>Local backup</h2>
+
+          <p class="muted">
+            Save a copy of your browser inventory
+            and check-in records before making changes.
+          </p>
+        </div>
+
+        <div class="backup-actions">
+
+          <button type="button"
+                  class="secondary-btn"
+                  id="backupExportBtn">
+
+            <svg class="mini-icon">
+              <use href="#ic-download"/>
+            </svg>
+
+            Export backup
+          </button>
+
+          <button type="button"
+                  class="secondary-btn"
+                  id="backupImportBtn">
+
+            <svg class="mini-icon">
+              <use href="#ic-upload"/>
+            </svg>
+
+            Import backup
+          </button>
+
+          <input id="backupFileInput"
+                 type="file"
+                 accept=".json,application/json"
+                 class="hidden">
+
+        </div>
+
+        <p id="backupMessage"
+           class="backup-message"
+           role="status"></p>
+
+      </section>
+
     </section>
 
-    <!-- INVENTORY: all existing IDs preserved -->
-    <section id="inventoryPage" class="page hidden"><section class="panel">
-      <div class="section-heading"><div><div class="panel-kicker">PRODUCT CATALOG</div><h2>Inventory management</h2><p class="muted">Full cases, loose units and minimums for each facility.</p></div><button type="button" id="addItemBtn" class="primary-btn">+ Add item</button></div>
-      <div class="filters"><label class="sr-only" for="inventorySearch">Search inventory</label><input id="inventorySearch" type="search" placeholder="Search product or item number…"><label class="sr-only" for="vendorFilter">Vendor</label><select id="vendorFilter"><option value="All">All vendors</option><option>Fresenius</option><option>Henry Schein</option><option>Cardinal</option><option>Proficient</option><option>Amazon</option><option>Other</option></select><label class="sr-only" for="stockFilter">Status</label><select id="stockFilter"><option value="all">All stock</option><option value="low">Low stock only</option><option value="review">Needs minimum review</option></select><button type="button" id="clearFiltersBtn" class="secondary-btn">Show all inventory</button></div>
-      <p id="filterSummary" class="muted small-note" aria-live="polite"></p>
-      <div class="table-wrap"><table><thead><tr><th>Product</th><th>Vendor</th><th>Facility</th><th>Cases</th><th>Loose</th><th>Units / Case</th><th>Total Units</th><th>Minimum Cases</th><th>Cases to Order</th><th>Status</th><th>Action</th></tr></thead><tbody id="inventoryTable"></tbody></table></div>
-      <p id="inventoryEmpty" class="empty-state hidden">No matching inventory items.</p>
-    </section></section>
+    <!-- INVENTORY PAGE -->
 
-    <!-- DAILY CHECK-IN: all existing IDs preserved -->
-    <section id="checkinPage" class="page hidden"><section class="panel">
-      <div class="section-heading"><div><div class="panel-kicker">DAILY OPERATIONS</div><h2>Morning inventory check-in</h2><p class="muted">Count and confirm every product before submitting.</p></div><div class="field-inline"><label for="checkinFacility">Counting facility</label><select id="checkinFacility"><option value="Jamaica">Jamaica (NDJ)</option><option value="Flatlands">Flatlands (NDF)</option></select></div></div>
-      <p class="warning">Counts are prefilled for reference. Physically check every product and tick Confirmed. Blank values are never treated as zero.</p>
-      <div class="checkin-progress"><strong id="checkinProgress">0 of 0 confirmed</strong><span id="checkinCurrentDate" class="muted"></span></div>
-      <form id="checkinForm"><div class="table-wrap"><table class="checkin-table"><thead><tr><th>Product</th><th>Vendor</th><th>Current</th><th>Counted Cases</th><th>Counted Loose Units</th><th>Verified</th></tr></thead><tbody id="checkinTable"></tbody></table></div><p id="checkinEmpty" class="empty-state hidden">No products at this facility yet. Add inventory items first.</p><p id="checkinError" class="form-error" role="alert"></p><p id="checkinSuccess" class="success-message hidden" role="status"></p><div class="checkin-actions"><button type="button" id="resetCheckinBtn" class="secondary-btn">Reset unsaved counts</button><button type="submit" id="submitCheckinBtn" class="primary-btn">Save completed check-in</button></div></form>
-    </section><section class="panel"><div class="panel-kicker">AUDIT TRAIL</div><h2>Recent check-in history</h2><p class="muted small-note">Saved locally in this browser. Expand a record to see earlier counts.</p><div id="checkinHistory" class="history-list"></div></section></section>
+    <section id="inventoryPage"
+             class="page hidden">
 
-    <!-- forecast.js injects its screen into this host; other modules use the placeholder -->
-    <section id="placeholderPage" class="page hidden"><section class="panel"><div class="panel-kicker">COMING NEXT</div><h2 id="placeholderTitle">Coming soon</h2><p class="muted">This NOVO IOS module is under development. Vendor connections and report processing are not active yet.</p><button type="button" class="primary-btn" data-goto="inventory">Go to inventory</button></section></section>
-    <p id="storageWarning" class="warning hidden" role="alert">Browser storage is unavailable or full. Changes cannot be saved. Check browser settings.</p>
-    <footer class="app-footer"><span>NOVO IOS / Inventory Ordering System</span><span>Local prototype · Not connected to vendor ordering</span></footer>
+      <section class="panel">
+
+        <div class="section-heading">
+
+          <div>
+            <div class="panel-kicker">
+              PRODUCT CATALOG
+            </div>
+
+            <h2>
+              Inventory management
+            </h2>
+
+            <p class="muted">
+              Full cases, loose units and minimums
+              for each facility.
+            </p>
+          </div>
+
+          <button type="button"
+                  id="addItemBtn"
+                  class="primary-btn">
+            + Add item
+          </button>
+
+        </div>
+
+        <!-- FILTERS -->
+
+        <div class="filters">
+
+          <label class="sr-only"
+                 for="inventorySearch">
+            Search inventory
+          </label>
+
+          <input id="inventorySearch"
+                 type="search"
+                 placeholder="Search product or item number…">
+
+          <label class="sr-only"
+                 for="vendorFilter">
+            Vendor
+          </label>
+
+          <select id="vendorFilter">
+            <option value="All">All vendors</option>
+            <option>Fresenius</option>
+            <option>Henry Schein</option>
+            <option>Cardinal</option>
+            <option>Proficient</option>
+            <option>Amazon</option>
+            <option>Other</option>
+          </select>
+
+          <label class="sr-only"
+                 for="stockFilter">
+            Status
+          </label>
+
+          <select id="stockFilter">
+            <option value="all">All stock</option>
+            <option value="low">Low stock only</option>
+            <option value="review">
+              Needs minimum review
+            </option>
+          </select>
+
+          <button type="button"
+                  id="clearFiltersBtn"
+                  class="secondary-btn">
+            Show all inventory
+          </button>
+
+        </div>
+
+        <p id="filterSummary"
+           class="muted small-note"
+           aria-live="polite"></p>
+
+        <div class="table-wrap">
+
+          <table>
+            <thead>
+              <tr>
+                <th>Product</th>
+                <th>Vendor</th>
+                <th>Facility</th>
+                <th>Cases</th>
+                <th>Loose</th>
+                <th>Units / Case</th>
+                <th>Total Units</th>
+                <th>Minimum Cases</th>
+                <th>Cases to Order</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+
+            <tbody id="inventoryTable"></tbody>
+          </table>
+
+        </div>
+
+        <p id="inventoryEmpty"
+           class="empty-state hidden">
+          No matching inventory items.
+        </p>
+
+      </section>
+
+    </section>
+
+    <!-- DAILY CHECK-IN -->
+
+    <section id="checkinPage"
+             class="page hidden">
+
+      <section class="panel">
+
+        <div class="section-heading">
+
+          <div>
+            <div class="panel-kicker">
+              DAILY OPERATIONS
+            </div>
+
+            <h2>
+              Morning inventory check-in
+            </h2>
+
+            <p class="muted">
+              Count and confirm every product
+              before submitting.
+            </p>
+          </div>
+
+          <div class="field-inline">
+
+            <label for="checkinFacility">
+              Counting facility
+            </label>
+
+            <select id="checkinFacility">
+              <option value="Jamaica">
+                Jamaica (NDJ)
+              </option>
+
+              <option value="Flatlands">
+                Flatlands (NDF)
+              </option>
+            </select>
+
+          </div>
+
+        </div>
+
+        <p class="warning">
+          Counts are prefilled for reference.
+          Physically check every product
+          and tick Confirmed.
+          Blank values are never treated as zero.
+        </p>
+
+        <div class="checkin-progress">
+
+          <strong id="checkinProgress">
+            0 of 0 confirmed
+          </strong>
+
+          <span id="checkinCurrentDate"
+                class="muted"></span>
+
+        </div>
+
+        <form id="checkinForm">
+
+          <div class="table-wrap">
+
+            <table class="checkin-table">
+
+              <thead>
+                <tr>
+                  <th>Product</th>
+                  <th>Vendor</th>
+                  <th>Current</th>
+                  <th>Counted Cases</th>
+                  <th>Counted Loose Units</th>
+                  <th>Verified</th>
+                </tr>
+              </thead>
+
+              <tbody id="checkinTable"></tbody>
+            </table>
+
+          </div>
+
+          <p id="checkinEmpty"
+             class="empty-state hidden">
+            No products at this facility yet.
+            Add inventory items first.
+          </p>
+
+          <p id="checkinError"
+             class="form-error"
+             role="alert"></p>
+
+          <p id="checkinSuccess"
+             class="success-message hidden"
+             role="status"></p>
+
+          <div class="checkin-actions">
+
+            <button type="button"
+                    id="resetCheckinBtn"
+                    class="secondary-btn">
+              Reset unsaved counts
+            </button>
+
+            <button type="submit"
+                    id="submitCheckinBtn"
+                    class="primary-btn">
+              Save completed check-in
+            </button>
+
+          </div>
+
+        </form>
+
+      </section>
+
+      <!-- CHECK-IN HISTORY -->
+
+      <section class="panel">
+
+        <div class="panel-kicker">
+          AUDIT TRAIL
+        </div>
+
+        <h2>Recent check-in history</h2>
+
+        <p class="muted small-note">
+          Saved locally in this browser.
+          Expand a record to see earlier counts.
+        </p>
+
+        <div id="checkinHistory"
+             class="history-list"></div>
+
+      </section>
+
+    </section>
+
+    <!-- FORECASTING & ORDERS MODULE HOST -->
+
+    <section id="placeholderPage"
+             class="page hidden">
+
+      <section class="panel">
+
+        <div class="panel-kicker">
+          COMING NEXT
+        </div>
+
+        <h2 id="placeholderTitle">
+          Coming soon
+        </h2>
+
+        <p class="muted">
+          This NOVO IOS module is under development.
+          Vendor connections and report processing
+          are not active yet.
+        </p>
+
+        <button type="button"
+                class="primary-btn"
+                data-goto="inventory">
+          Go to inventory
+        </button>
+
+      </section>
+
+    </section>
+
+    <!-- STORAGE WARNING -->
+
+    <p id="storageWarning"
+       class="warning hidden"
+       role="alert">
+      Browser storage is unavailable or full.
+      Changes cannot be saved.
+      Check browser settings.
+    </p>
+
+    <!-- FOOTER -->
+
+    <footer class="app-footer">
+      <span>
+        NOVO IOS / Inventory Ordering System
+      </span>
+
+      <span>
+        Local prototype ·
+        Not connected to vendor ordering
+      </span>
+    </footer>
+
   </main>
 
-  <!-- Inventory dialog: keep IDs required by app.js -->
-  <dialog id="itemDialog" class="item-dialog" aria-labelledby="dialogTitle"><form id="itemForm">
-    <div class="section-heading"><div><div class="panel-kicker">PRODUCT DETAILS</div><h2 id="dialogTitle">Add inventory item</h2></div><button type="button" id="closeDialogBtn" class="icon-btn" aria-label="Close">×</button></div>
-    <input type="hidden" id="editItemId"><p id="legacyNote" class="warning hidden"></p>
-    <div class="form-grid">
-      <label>Product name<input id="itemName" required maxlength="120" placeholder="Example: F180 NRe"></label>
-      <label>Vendor<select id="itemVendor" required><option>Fresenius</option><option>Henry Schein</option><option>Cardinal</option><option>Proficient</option><option>Amazon</option><option>Other</option></select></label>
-      <label>Facility<select id="itemFacility" required><option value="Jamaica">Jamaica (NDJ)</option><option value="Flatlands">Flatlands (NDF)</option></select></label>
-      <label>Vendor item number<input id="itemSku" maxlength="80" placeholder="Optional SKU"></label>
-      <label>Full cases<input id="itemCases" type="number" min="0" step="1" value="0" required></label>
-      <label>Loose units<input id="itemLoose" type="number" min="0" step="1" value="0" required></label>
-      <label>Units per case<input id="itemCaseSize" type="number" min="1" step="1" value="12" required></label>
-      <label>Minimum stock (CASES)<input id="itemMinimum" type="number" min="0" step="1" placeholder="Example: 13" required></label>
-    </div>
-    <p id="formError" class="form-error" role="alert"></p><div class="dialog-actions"><button type="button" id="cancelDialogBtn" class="secondary-btn">Cancel</button><button type="submit" class="primary-btn">Save item</button></div>
-  </form></dialog>
+  <!-- INVENTORY ADD/EDIT DIALOG -->
+
+  <dialog id="itemDialog"
+          class="item-dialog"
+          aria-labelledby="dialogTitle">
+
+    <form id="itemForm">
+
+      <div class="section-heading">
+
+        <div>
+          <div class="panel-kicker">
+            PRODUCT DETAILS
+          </div>
+
+          <h2 id="dialogTitle">
+            Add inventory item
+          </h2>
+        </div>
+
+        <button type="button"
+                id="closeDialogBtn"
+                class="icon-btn"
+                aria-label="Close">
+          ×
+        </button>
+
+      </div>
+
+      <input type="hidden"
+             id="editItemId">
+
+      <p id="legacyNote"
+         class="warning hidden"></p>
+
+      <div class="form-grid">
+
+        <label>
+          Product name
+
+          <input id="itemName"
+                 required
+                 maxlength="120"
+                 placeholder="Example: F180 NRe">
+        </label>
+
+        <label>
+          Vendor
+
+          <select id="itemVendor" required>
+            <option>Fresenius</option>
+            <option>Henry Schein</option>
+            <option>Cardinal</option>
+            <option>Proficient</option>
+            <option>Amazon</option>
+            <option>Other</option>
+          </select>
+        </label>
+
+        <label>
+          Facility
+
+          <select id="itemFacility" required>
+            <option value="Jamaica">
+              Jamaica (NDJ)
+            </option>
+
+            <option value="Flatlands">
+              Flatlands (NDF)
+            </option>
+          </select>
+        </label>
+
+        <label>
+          Vendor item number
+
+          <input id="itemSku"
+                 maxlength="80"
+                 placeholder="Optional SKU">
+        </label>
+
+        <label>
+          Full cases
+
+          <input id="itemCases"
+                 type="number"
+                 min="0"
+                 step="1"
+                 value="0"
+                 required>
+        </label>
+
+        <label>
+          Loose units
+
+          <input id="itemLoose"
+                 type="number"
+                 min="0"
+                 step="1"
+                 value="0"
+                 required>
+        </label>
+
+        <label>
+          Units per case
+
+          <input id="itemCaseSize"
+                 type="number"
+                 min="1"
+                 step="1"
+                 value="12"
+                 required>
+        </label>
+
+        <label>
+          Minimum stock (CASES)
+
+          <input id="itemMinimum"
+                 type="number"
+                 min="0"
+                 step="1"
+                 placeholder="Example: 13"
+                 required>
+        </label>
+
+      </div>
+
+      <p id="formError"
+         class="form-error"
+         role="alert"></p>
+
+      <div class="dialog-actions">
+
+        <button type="button"
+                id="cancelDialogBtn"
+                class="secondary-btn">
+          Cancel
+        </button>
+
+        <button type="submit"
+                class="primary-btn">
+          Save item
+        </button>
+
+      </div>
+
+    </form>
+
+  </dialog>
+
 </body>
 </html>
