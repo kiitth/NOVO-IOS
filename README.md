@@ -2,11 +2,11 @@
 
 > A shared inventory and ordering workspace for me to coordinate supplies across Novo Dialysis locations.
 
-**Author:** [Your name] · **Course:** CMP 464/343 Product 1 · **Last updated:** October 21, 2026
+**Author:** Keith Mora · **Course:** CMP 464/343 Product 1 · **Last updated:** October 21, 2026
 
 ---
 
-## 1. About Me (the User)
+## 1. About Me 
 
 I coordinate ordering and inventory for multiple Novo Dialysis locations, including Jamaica and Flatland. I work with medication suppliers, order main supplies by phone, and replenish office, bathroom, and breakroom essentials through Amazon. I also review clinical reports to understand patient activity and weekly medication and supply usage.
 
