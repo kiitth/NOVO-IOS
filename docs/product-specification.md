@@ -348,46 +348,27 @@ These are remaining discovery items, not implemented assumptions:
 
 ## 18. Current implementation and development
 
-The repository name is `NOVO-IOS`, but the agreed product is a web app. The current implementation is a lightweight Vite application using JavaScript and CSS; production backend and database choices have not been made.
+**Updated November 2, 2026:** Black Edition is now the main application, imported from the user-supplied six-file ZIP. The product requirements above remain the target; this implementation does not yet satisfy the operational foundation.
 
-### Implemented in the sketch
+### Current Black Edition
 
-- Responsive overview and location selector.
-- Eight illustrative catalog items and per-location stock values.
-- Search and in-memory count updates.
-- Supplier-grouped draft order creation based on below-target items.
-- Transfer creation with an insufficient-stock check and receipt confirmation.
-- A usage-report placeholder identifying that integration is planned.
+- Dark dashboard with Jamaica and Flatlands facility selection, low-stock alerts, and recent check-ins.
+- Editable inventory with cases, loose units, units per case, and minimum cases.
+- Browser-local persistence, confirmed daily counts, and check-in history.
+- Local backup import/export controls.
+- Configurable utilization forecasting and CSV export controls, using editable demonstration assumptions.
+- Purchasing, orders/deliveries, RenVio report center, and notification placeholders.
 
-### Current limitations
+There is no authentication, shared database, production inventory ledger, transfer module, completed order/receiving module, or live supplier/clinical integration. Report-source identity remains unverified. Starting forecast inputs are not approved medication or procurement recommendations. A new browser has no initial catalog; the workbook is not automatically imported.
 
-All values are sample data inspired by the workbook, not a verified inventory import. State exists only in the current browser session and resets on refresh. Existing sample orders and the sample in-transit transfer are illustrative. Initial available balances are treated as already reflecting that sample dispatch.
+### Earlier sketch
 
-There is no authentication, shared persistence, production ledger, real approval flow, detailed order editor, partial receiving, lot tracking, live supplier connection, or clinical report import. Current draft creation records a line-item count, not a complete order suitable for submission. Medication quantities and replenishment targets are not validated clinical or procurement recommendations.
+The earlier light prototype is archived in `legacy/light-edition/`, including its sample inventory, in-memory order drafts, and transfer interactions. Its data and behavior are separate from Black Edition. Access it through the development server at `/legacy/light-edition/`.
 
-### Run locally or in the development workspace
+### Development
 
-Requires Node.js 20.19+ on the 20.x line, or Node.js 22.12+; use a supported LTS version for ongoing development.
+Run `npm ci` and `npm run dev` from the repository root. Use Node.js 20.19+ on the 20.x line or 22.12+, preferably a supported LTS release. `npm run build` copies the six static Black Edition files into `dist/`; `npm run preview` serves the result. Classic scripts run in dependency order, without module bundling.
 
-```sh
-cd /workspace/NOVO-IOS
-npm ci --cache /workspace/.npm-cache
-npm run dev
-```
+JavaScript syntax, static build, and DOM-based checks passed for startup, navigation, inventory creation/persistence, unconfirmed count rejection, check-in history, forecast settings, and dashboard alerts. These checks do not establish browser visual fidelity, backup/CSV behavior, production security, shared-data correctness, or clinical calculation validity.
 
-For another checkout location, change into that directory and omit the workspace-specific cache argument if unnecessary. Open the local address printed by Vite. In a hosted workspace, use its port preview mechanism if available.
-
-```sh
-npm run build
-npm run preview
-```
-
-`build` creates the production assets in `dist/`; `preview` serves those built assets for inspection. Neither command deploys the application or creates shared storage.
-
-### Validation completed for the sketch
-
-The production build passed. DOM-based interaction checks exercised navigation, count updates, insufficient-stock rejection, transfer dispatch/receipt balance changes, supplier order drafts, and the report placeholder. The development server returned the application HTML. These checks do not establish browser visual fidelity, production security, clinical integration, or multi-user correctness.
-
-### Working conventions
-
-Use the existing isolated checkout; create a separate worktree only when explicitly requested. Keep uploaded source workbooks unchanged. Use synthetic or reviewed aggregate data during development, keep credentials out of source control, and label unimplemented integrations clearly. Update this specification as decisions are confirmed and features become operational.
+Use the existing isolated checkout unless a worktree is explicitly requested. Preserve source workbooks, keep credentials out of source control, and label unimplemented integrations clearly.

@@ -2,7 +2,7 @@
 
 > A shared inventory and ordering workspace for me to coordinate supplies across Novo Dialysis locations.
 
-**Author:** Keith Mora · **Course:** CMP 464/343 Product 1 · **Last updated:** October 21, 2026
+**Author:** Keith Mora · **Course:** CMP 464/343 Product 1 · **Last updated:** November 2, 2026
 
 ---
 
@@ -144,7 +144,11 @@ flowchart TD
 
 ### Current sketch and local development
 
-The sketch includes location filtering, sample inventory, count updates, supplier draft orders, transfer dispatch and receipt, and a usage-report placeholder. It uses illustrative data and in-memory state; changes reset on refresh. There are no live supplier or clinical connections, shared database, or authentication.
+The current entry point is **Black Edition**, imported from the supplied six-file ZIP. It has a dark dashboard, Jamaica / Flatlands facility selection, editable inventory with cases and loose units, confirmed daily check-ins, local backup controls, and configurable forecasting with CSV export. Inventory and check-in records persist in this browser's localStorage; they are not shared between staff or devices. A fresh browser starts with an empty catalog. Back up browser data before clearing site storage.
+
+Forecast treatment counts and starting usage rates are editable demonstration assumptions, not verified clinical data. Confirm all quantities and conversions before purchasing. Vendor purchasing, orders/deliveries, RenVio reports, and notifications are placeholders. Transfers are not implemented in Black Edition. No clinical reporting source or live integration has been verified.
+
+The earlier light sketch is preserved under `legacy/light-edition/` and can be opened through the development server at `/legacy/light-edition/`. Its in-memory inventory, order drafts, and transfer interactions are separate from Black Edition storage. The unused original `src/` entry has been archived there.
 
 Requires Node.js 20.19+ on the 20.x line, or 22.12+. Use a supported LTS release.
 
@@ -160,7 +164,9 @@ npm run build
 npm run preview
 ```
 
-The production build and DOM-based checks for core sketch interactions have passed. These checks do not establish production readiness or validate medication calculations.
+The Black Edition static build and JavaScript syntax checks passed. DOM-based checks exercised startup, navigation, inventory creation and saving, rejection of unconfirmed check-ins, confirmed check-in history, forecasting settings, and dashboard alerts. Backup controls, CSV downloads, browser visual fidelity, and production security have not been fully validated. These checks do not establish production readiness or validate medication calculations.
+
+`npm run build` copies the six static application files into `dist/`; `npm run preview` serves that output. The root HTML loads classic scripts in order: `inventory.js`, `app.js`, `forecast.js`, then `dashboard.js`. No bundling is required for this edition.
 
 The more detailed operational requirements, migration rules, data model, acceptance criteria, and implementation limitations are preserved in [the full product specification](docs/product-specification.md).
 
