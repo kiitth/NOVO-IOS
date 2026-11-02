@@ -1,0 +1,814 @@
+
+/* ============================================================
+   NOVO IOS — BLACK EDITION 2.0
+   ANIMATED STOCK CHARTS
+
+   File: stock-animations.css
+
+   Works with:
+   - index.html
+   - stock-animations.js
+
+   Animation is controlled by JavaScript.
+   Stock percentages are based on actual inventory data.
+   ============================================================ */
+
+
+/* ============================================================
+   01 — THEME SETTINGS
+   ============================================================ */
+
+:root {
+  --stock-background: #0c1421;
+  --stock-card-background: #121d2e;
+  --stock-card-hover: #16243a;
+
+  --stock-border: #283a55;
+  --stock-border-hover: #477cbe;
+
+  --stock-text: #f0f6ff;
+  --stock-muted: #92a7c4;
+
+  --stock-blue: #4b96ff;
+  --stock-cyan: #71d8ff;
+  --stock-green: #4cddb0;
+  --stock-amber: #ffc16a;
+  --stock-red: #ff758a;
+
+  --stock-radius: 16px;
+}
+
+
+/* ============================================================
+   02 — MAIN CHART SECTION
+   ============================================================ */
+
+.stock-charts-panel {
+  position: relative;
+
+  margin: 22px 0;
+
+  padding: clamp(18px, 2vw, 26px);
+
+  background:
+    radial-gradient(
+      circle at 90% 0%,
+      rgba(55, 122, 218, 0.10),
+      transparent 45%
+    ),
+    linear-gradient(
+      145deg,
+      #111a2a,
+      #0c1421
+    );
+
+  border: 1px solid #293a53;
+  border-radius: 18px;
+
+  overflow: hidden;
+  isolation: isolate;
+}
+
+
+/* Subtle blue lighting along the top */
+
+.stock-charts-panel::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: 10%;
+  right: 10%;
+
+  height: 1px;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(91, 158, 255, 0.6),
+    transparent
+  );
+
+  pointer-events: none;
+}
+
+
+/* Inventory-page variation */
+
+.stock-charts-inventory {
+  margin-top: 24px;
+  margin-bottom: 26px;
+
+  background:
+    radial-gradient(
+      circle at 10% 0%,
+      rgba(43, 116, 226, 0.09),
+      transparent 55%
+    ),
+    #101827;
+}
+
+
+/* ============================================================
+   03 — SECTION HEADING
+   ============================================================ */
+
+.stock-charts-heading {
+  position: relative;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  flex-wrap: wrap;
+  gap: 14px;
+
+  margin-bottom: 22px;
+}
+
+.stock-charts-heading h2,
+.stock-charts-heading h3 {
+  color: var(--stock-text);
+
+  font-size: clamp(19px, 2vw, 23px);
+  font-weight: 750;
+
+  letter-spacing: -0.5px;
+
+  margin: 4px 0 7px;
+}
+
+.stock-charts-heading p {
+  color: var(--stock-muted);
+  font-size: 12px;
+  line-height: 1.6;
+
+  margin: 0;
+}
+
+.stock-chart-legend {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 7px;
+
+  padding: 8px 12px;
+
+  background: rgba(63, 125, 209, 0.09);
+
+  border: 1px solid rgba(100, 154, 225, 0.20);
+  border-radius: 999px;
+
+  color: #a9cbfa;
+  font-size: 11px;
+  font-weight: 650;
+
+  white-space: nowrap;
+}
+
+
+/* ============================================================
+   04 — CHART GRID
+   ============================================================ */
+
+.stock-chart-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap: 15px;
+
+  width: 100%;
+  min-width: 0;
+}
+
+
+/* ============================================================
+   05 — INDIVIDUAL CHART CARDS
+   ============================================================ */
+
+.stock-chart-card {
+  --meter-color: var(--stock-blue);
+  --fill-percent: 0%;
+
+  position: relative;
+
+  min-width: 0;
+  min-height: 220px;
+
+  padding: 19px;
+
+  display: flex;
+  flex-direction: column;
+
+  background:
+    linear-gradient(
+      155deg,
+      rgba(26, 42, 66, 0.98),
+      rgba(15, 24, 39, 0.98)
+    );
+
+  border: 1px solid var(--stock-border);
+  border-radius: var(--stock-radius);
+
+  overflow: hidden;
+  isolation: isolate;
+
+  transition:
+    transform 260ms ease,
+    border-color 260ms ease,
+    box-shadow 260ms ease,
+    background-color 260ms ease;
+}
+
+
+/* Decorative background glow */
+
+.stock-chart-card::before {
+  content: "";
+
+  position: absolute;
+
+  width: 170px;
+  height: 170px;
+
+  top: -110px;
+  right: -65px;
+
+  border-radius: 50%;
+
+  background: var(--meter-color);
+
+  opacity: 0.08;
+  filter: blur(48px);
+
+  pointer-events: none;
+}
+
+
+/* Light reflection on the card */
+
+.stock-chart-card::after {
+  content: "";
+
+  position: absolute;
+
+  top: -100%;
+  left: -130%;
+
+  width: 65%;
+  height: 300%;
+
+  transform: rotate(25deg);
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.065),
+    transparent
+  );
+
+  pointer-events: none;
+
+  transition: left 650ms ease;
+}
+
+.stock-chart-card:hover {
+  transform: translateY(-5px);
+
+  border-color: var(--stock-border-hover);
+
+  box-shadow:
+    0 15px 35px rgba(0, 0, 0, 0.25),
+    0 0 24px rgba(63, 130, 255, 0.08);
+}
+
+.stock-chart-card:hover::after {
+  left: 165%;
+}
+
+
+/* ============================================================
+   06 — INVENTORY CONDITION COLORS
+   ============================================================ */
+
+/* Healthy: current stock meets minimum */
+
+.stock-chart-card.is-healthy {
+  --meter-color: var(--stock-green);
+}
+
+/* Low: current stock is below minimum */
+
+.stock-chart-card.is-low {
+  --meter-color: var(--stock-amber);
+}
+
+/* Critical: below half of minimum */
+
+.stock-chart-card.is-critical {
+  --meter-color: var(--stock-red);
+}
+
+/* Minimum has not been configured */
+
+.stock-chart-card.is-review {
+  --meter-color: #879bb6;
+}
+
+
+/* ============================================================
+   07 — PRODUCT NAME / FACILITY
+   ============================================================ */
+
+.stock-chart-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  gap: 10px;
+
+  margin-bottom: 17px;
+}
+
+.stock-chart-title,
+.stock-chart-card h3,
+.stock-chart-card h4 {
+  margin: 0;
+
+  color: var(--stock-text);
+
+  font-size: 14px;
+  font-weight: 750;
+
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.stock-chart-category {
+  display: block;
+
+  margin-bottom: 5px;
+
+  color: #87a8d7;
+
+  font-size: 10px;
+  font-weight: 800;
+
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.stock-chart-facility {
+  display: inline-flex;
+  align-items: center;
+
+  padding: 5px 8px;
+
+  border-radius: 7px;
+
+  background: #203653;
+
+  color: #bad5fa;
+
+  font-size: 10px;
+  font-weight: 750;
+
+  white-space: nowrap;
+}
+
+
+/* ============================================================
+   08 — ANIMATED PERCENTAGE NUMBER
+   ============================================================ */
+
+.stock-chart-value-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 12px;
+
+  margin-bottom: 16px;
+}
+
+.stock-chart-value {
+  display: flex;
+  align-items: baseline;
+
+  gap: 5px;
+}
+
+.stock-meter-number {
+  color: var(--stock-text);
+
+  font-size: clamp(35px, 3.2vw, 45px);
+  font-weight: 800;
+
+  letter-spacing: -2px;
+  line-height: 1.1;
+
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+
+  text-shadow:
+    0 0 24px rgba(88, 159, 255, 0.12);
+}
+
+.stock-meter-percent-sign {
+  color: var(--meter-color);
+
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.stock-meter-target {
+  color: var(--stock-muted);
+
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.stock-meter-kicker {
+  display: block;
+
+  margin-top: 6px;
+
+  color: var(--stock-muted);
+
+  font-size: 11px;
+}
+
+
+/* ============================================================
+   09 — CIRCULAR STOCK GAUGE
+   ============================================================ */
+
+.stock-meter-dial {
+  width: 83px;
+  height: 83px;
+
+  flex: 0 0 83px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 50%;
+
+  background:
+    conic-gradient(
+      from -90deg,
+      var(--meter-color) 0%,
+      var(--meter-color) var(--fill-percent),
+      #29384d var(--fill-percent),
+      #29384d 100%
+    );
+
+  box-shadow:
+    0 0 18px rgba(70, 140, 255, 0.08);
+}
+
+.stock-meter-dial-core {
+  width: 67px;
+  height: 67px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-direction: column;
+
+  border-radius: 50%;
+
+  background: #111d2e;
+  border: 1px solid #293a52;
+
+  color: var(--stock-text);
+}
+
+.stock-meter-dial-core strong {
+  font-size: 19px;
+  font-weight: 800;
+
+  font-variant-numeric: tabular-nums;
+}
+
+.stock-meter-dial-core small {
+  color: var(--stock-muted);
+
+  font-size: 9px;
+  font-weight: 650;
+}
+
+
+/* ============================================================
+   10 — PROGRESS BAR
+   ============================================================ */
+
+.stock-meter {
+  width: 100%;
+  margin-top: auto;
+}
+
+.stock-meter-track {
+  position: relative;
+
+  height: 10px;
+  width: 100%;
+
+  overflow: hidden;
+
+  background: #26364a;
+
+  border: 1px solid rgba(117, 153, 201, 0.14);
+  border-radius: 999px;
+}
+
+.stock-meter-bar {
+  position: relative;
+
+  height: 100%;
+  width: var(--fill-percent, 0%);
+
+  max-width: 100%;
+  min-width: 0;
+
+  background:
+    linear-gradient(
+      90deg,
+      var(--meter-color),
+      var(--stock-cyan)
+    );
+
+  border-radius: inherit;
+
+  box-shadow:
+    0 0 12px var(--meter-color);
+
+  /* JavaScript will update the width every frame. */
+  transition: none;
+
+  overflow: hidden;
+}
+
+
+/* Bright leading edge */
+
+.stock-meter-bar::after {
+  content: "";
+
+  position: absolute;
+
+  right: 0;
+  top: 0;
+
+  width: 20px;
+  height: 100%;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.65)
+  );
+
+  border-radius: inherit;
+}
+
+
+/* Extra glow while counting up */
+
+.stock-chart-card.is-animating
+.stock-meter-bar {
+  filter:
+    drop-shadow(
+      0 0 6px var(--meter-color)
+    );
+}
+
+
+/* ============================================================
+   11 — SUBTLE THROTTLE PULSE
+   ============================================================ */
+
+@keyframes stockMeterPulse {
+  0% {
+    opacity: 0.65;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.025);
+  }
+
+  100% {
+    opacity: 0.75;
+    transform: scale(1);
+  }
+}
+
+.stock-chart-card.is-animating
+.stock-meter-dial {
+  animation:
+    stockMeterPulse 700ms ease-in-out infinite;
+}
+
+
+/* ============================================================
+   12 — STOCK DETAILS BELOW THE BAR
+   ============================================================ */
+
+.stock-chart-meta {
+  display: flex;
+  justify-content: space-between;
+
+  flex-wrap: wrap;
+  gap: 8px;
+
+  margin-top: 12px;
+
+  color: #a5b7d0;
+
+  font-size: 11px;
+}
+
+.stock-chart-meta strong {
+  color: #e6f0ff;
+  font-weight: 750;
+}
+
+.stock-chart-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  flex-wrap: wrap;
+  gap: 8px;
+
+  margin-top: 13px;
+  padding-top: 12px;
+
+  border-top: 1px solid #29384d;
+}
+
+.stock-chart-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  padding: 5px 9px;
+
+  background: rgba(100, 150, 220, 0.1);
+  border: 1px solid rgba(100, 150, 220, 0.18);
+  border-radius: 999px;
+
+  color: var(--meter-color);
+
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.stock-chart-status::before {
+  content: "";
+
+  width: 6px;
+  height: 6px;
+
+  border-radius: 50%;
+
+  background: currentColor;
+}
+
+.stock-chart-detail {
+  color: var(--stock-muted);
+  font-size: 10px;
+}
+
+
+/* ============================================================
+   13 — EMPTY / LOADING STATE
+   ============================================================ */
+
+.stock-chart-placeholder,
+.stock-charts-empty {
+  grid-column: 1 / -1;
+
+  padding: 32px 20px;
+
+  margin: 0;
+
+  text-align: center;
+
+  color: #9bb0ce;
+
+  font-size: 12px;
+  line-height: 1.7;
+
+  background: rgba(20, 35, 55, 0.55);
+
+  border: 1px dashed #34455d;
+  border-radius: 12px;
+}
+
+
+/* ============================================================
+   14 — CARD ENTRANCE
+   ============================================================ */
+
+@keyframes stockCardEntrance {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.985);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.stock-chart-card.is-entering {
+  animation:
+    stockCardEntrance 450ms both;
+
+  animation-delay:
+    var(--card-delay, 0ms);
+}
+
+
+/* ============================================================
+   15 — RESPONSIVE DESIGN
+   ============================================================ */
+
+@media (max-width: 1250px) {
+  .stock-chart-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 740px) {
+  .stock-chart-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stock-charts-heading {
+    align-items: flex-start;
+  }
+
+  .stock-chart-card {
+    min-height: 205px;
+  }
+
+  .stock-meter-number {
+    font-size: 40px;
+  }
+}
+
+@media (max-width: 420px) {
+  .stock-charts-panel {
+    padding: 14px;
+  }
+
+  .stock-chart-card {
+    padding: 15px;
+  }
+
+  .stock-meter-dial {
+    width: 72px;
+    height: 72px;
+    flex-basis: 72px;
+  }
+
+  .stock-meter-dial-core {
+    width: 58px;
+    height: 58px;
+  }
+}
+
+
+/* ============================================================
+   16 — ACCESSIBILITY
+   ============================================================ */
+
+/* Respect users who prefer minimal motion */
+
+@media (prefers-reduced-motion: reduce) {
+  .stock-chart-card,
+  .stock-chart-card::after,
+  .stock-meter-bar {
+    transition: none !important;
+  }
+
+  .stock-chart-card.is-entering,
+  .stock-chart-card.is-animating
+  .stock-meter-dial {
+    animation: none !important;
+  }
+
+  .stock-chart-card:hover {
+    transform: none;
+  }
+}
