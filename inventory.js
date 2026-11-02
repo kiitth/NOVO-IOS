@@ -1,3 +1,4 @@
+
 // NOVO IOS - local inventory database and daily check-in history.
 // Demo only: browser localStorage is not secure/shared storage.
 const Inventory = (() => {
@@ -41,6 +42,7 @@ const Inventory = (() => {
     const legacyMinUnits = optionalWholeNumber(first(record, ["legacyMinUnits", "minimum", "minUnits", "minimumUnits", "minimumStock"]));
     return {
       id: String(record.id || newId()),
+      sharedProductId: record.sharedProductId ? String(record.sharedProductId) : null,
       name: String(first(record, ["name", "product", "productName"]) || "Unnamed Item"),
       vendor: String(record.vendor || "Other"),
       facility: record.facility === "Flatlands" ? "Flatlands" : "Jamaica",
@@ -170,6 +172,48 @@ const Inventory = (() => {
     return item;
   }
 
+  // Save one product for both facilities in a SINGLE storage transaction.
+  // Keep separate per-facility inventory records so receiving, check-ins,
+  // low-stock alerts, and forecasting never pool physical stock.
+  function upsertShared(data, perFacility) {
+    if (!data.name || !String(data.name).trim()) throw new Error("Product name is required.");
+    const locations = ["Jamaica", "Flatlands"];
+    const old = data.id ? find(String(data.id)) : null;
+    const groupId = old?.sharedProductId || newId();
+    const next = items.slice();
+    const now = new Date().toISOString();
+    const output = [];
+    for (const location of locations) {
+      const stock = perFacility[location];
+      if (!stock) throw new Error(`Missing ${location} quantities.`);
+      // Reuse an existing matching product instead of creating a duplicate.
+      const match = next.find(item =>
+        item.facility === location && (
+          item.sharedProductId === groupId ||
+          (old && item.id === old.id) ||
+          (item.name.trim().toLowerCase() === String(data.name).trim().toLowerCase() &&
+           item.vendor === data.vendor &&
+           item.sku.trim().toLowerCase() === String(data.sku || "").trim().toLowerCase())
+        )
+      );
+      const normalized = normalize({
+        ...data, ...stock, facility: location,
+        id: match ? match.id : newId(),
+        sharedProductId: groupId,
+        createdAt: match?.createdAt || now,
+        updatedAt: now,
+        legacyMinUnits: null
+      });
+      if (normalized.minCases === null) throw new Error(`Enter a valid ${location} minimum in cases.`);
+      const index = next.findIndex(item => item.id === normalized.id);
+      if (index < 0) next.push(normalized);
+      else next[index] = normalized;
+      output.push(normalized);
+    }
+    commit(next, checkins);
+    return output;
+  }
+
   function remove(id) {
     commit(items.filter(item => item.id !== String(id)), checkins);
   }
@@ -243,7 +287,7 @@ const Inventory = (() => {
   return {
     all, find, getVisible, totalUnits, minimumUnits,
     needsReview, isLow, shortageUnits, casesToOrder,
-    upsert, remove, history, applyCheckin,
+    upsert, upsertShared, remove, history, applyCheckin,
     isStorageAvailable: () => storageAvailable
   };
 })();
