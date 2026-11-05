@@ -1,0 +1,262 @@
+
+/*
+ * NOVO IOS — Clean Logo Rush Welcome
+ * A white opening screen with the REAL Novo Dialysis brand artwork.
+ * The logo surges toward the viewer and diffuses to reveal the app.
+ * No inventory data is accessed or changed.
+ */
+
+#novoWelcome {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483000;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: #fff;
+  opacity: 1;
+  visibility: visible;
+  isolation: isolate;
+  cursor: default;
+  -webkit-tap-highlight-color: transparent;
+  animation: novoWelcomeCurtain 2850ms linear both;
+}
+
+#novoWelcome .novo-welcome-logo {
+  display: block;
+  position: relative;
+  z-index: 2;
+  width: min(70vw, 660px);
+  height: auto;
+  max-height: 70vh;
+  object-fit: contain;
+  user-select: none;
+  pointer-events: none;
+  transform-origin: center center;
+  will-change: transform, filter, opacity;
+  backface-visibility: hidden;
+  animation: novoWelcomeRush 2650ms
+    cubic-bezier(.14,.7,.12,1) both;
+}
+
+/* Soft glow appearing when the logo diffuses */
+
+#novoWelcome .novo-welcome-flash {
+  position: absolute;
+  inset: -50%;
+  z-index: 1;
+  pointer-events: none;
+
+  background: radial-gradient(
+    circle at center,
+    rgba(193, 241, 250, .8) 0,
+    rgba(229, 249, 255, .6) 16%,
+    rgba(255, 255, 255, 0) 44%
+  );
+
+  opacity: 0;
+  transform: scale(.3);
+  will-change: opacity, transform;
+  animation: novoWelcomeFlash 2650ms ease-out both;
+}
+
+/* Blue and teal particles */
+
+#novoWelcome .novo-welcome-particle {
+  position: absolute;
+  z-index: 3;
+
+  width: var(--size, 4px);
+  height: var(--size, 4px);
+
+  left: calc(50% + var(--sx, 0px));
+  top: calc(50% + var(--sy, 0px));
+
+  border-radius: 50%;
+  background: var(--color, #12b7dd);
+  opacity: 0;
+
+  box-shadow: 0 0 12px currentColor;
+
+  pointer-events: none;
+  will-change: transform, opacity;
+
+  animation: novoWelcomeScatter 900ms
+    cubic-bezier(.19,1,.22,1) both;
+
+  animation-delay: var(--delay, 1375ms);
+}
+
+/* ==================================================
+   LOGO RUSH — THE FORWARD ZOOM EFFECT
+   ================================================== */
+
+@keyframes novoWelcomeRush {
+  0% {
+    transform: perspective(900px)
+      translateZ(-35px) scale(.94);
+    filter: blur(0);
+    opacity: 1;
+  }
+
+  29% {
+    transform: perspective(900px)
+      translateZ(0) scale(1);
+    filter: blur(0);
+    opacity: 1;
+  }
+
+  42% {
+    transform: scale(1.015);
+    filter: blur(0);
+    opacity: 1;
+  }
+
+  56% {
+    transform: scale(1.16);
+    filter: blur(0);
+    opacity: 1;
+  }
+
+  69% {
+    transform: scale(2.4);
+    filter: blur(1px);
+    opacity: .95;
+  }
+
+  82% {
+    transform: scale(5.1);
+    filter: blur(6px);
+    opacity: .55;
+  }
+
+  100% {
+    transform: scale(11);
+    filter: blur(20px);
+    opacity: 0;
+  }
+}
+
+/* ==================================================
+   WHITE SCREEN FADES INTO DASHBOARD
+   ================================================== */
+
+@keyframes novoWelcomeCurtain {
+  0%, 58% {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  71% {
+    opacity: .93;
+    visibility: visible;
+  }
+
+  87% {
+    opacity: .22;
+    visibility: visible;
+  }
+
+  100% {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+
+/* ==================================================
+   LIGHT DIFFUSION
+   ================================================== */
+
+@keyframes novoWelcomeFlash {
+  0%, 52% {
+    opacity: 0;
+    transform: scale(.35);
+  }
+
+  70% {
+    opacity: .30;
+    transform: scale(.9);
+  }
+
+  86% {
+    opacity: .08;
+    transform: scale(1.8);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(2.6);
+  }
+}
+
+/* ==================================================
+   PARTICLE SCATTER
+   ================================================== */
+
+@keyframes novoWelcomeScatter {
+  0% {
+    transform: translate(0,0) scale(.2);
+    opacity: 0;
+  }
+
+  22% {
+    opacity: .75;
+  }
+
+  100% {
+    transform:
+      translate(
+        var(--dx, 100px),
+        var(--dy, 100px)
+      )
+      scale(.04);
+    opacity: 0;
+  }
+}
+
+/* ==================================================
+   SKIP ANIMATION
+   ================================================== */
+
+#novoWelcome.novo-welcome-skipped {
+  animation: none !important;
+
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+
+  transition:
+    opacity 180ms ease,
+    visibility 180ms ease;
+}
+
+/* ==================================================
+   MOBILE DISPLAY
+   ================================================== */
+
+@media (max-width: 620px) {
+  #novoWelcome .novo-welcome-logo {
+    width: 86vw;
+  }
+}
+
+/* ==================================================
+   REDUCED MOTION ACCESSIBILITY
+   ================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  #novoWelcome,
+  #novoWelcome .novo-welcome-logo,
+  #novoWelcome .novo-welcome-flash,
+  #novoWelcome .novo-welcome-particle {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  #novoWelcome {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+}
